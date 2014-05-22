@@ -1,11 +1,14 @@
 package com.servlets;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+
 
 //import com.utils.DbUtil;;
 
@@ -108,7 +111,7 @@ public class RunUtils {
 	 public static ProductNameBean showProduct(String path, String price){
 		 String name = null ;
 		 String description = null ;
-		 float price1 = Float.parseFloat(price);
+		// float price1 = Float.parseFloat(price);
 		 
 		 try{
 			 Connection conn = getConnection();
@@ -188,6 +191,60 @@ public class RunUtils {
 		 
 		 
 		 return(new ProductBean(path1,price1,name1,description1));
+		 
+	 }
+	 
+	 public static UserNameBean getUserName(String username,String password){
+		 String name = null;
+		 String surname = null;
+		
+		 try{
+			 Connection conn = getConnection();
+			 String sql = "select name,surname from user  where user.userName='"+username+"' and user.password='"+password+"'";     
+			 
+			 PreparedStatement statement = conn.prepareStatement(sql);
+			 
+			 ResultSet rs = statement.executeQuery(sql);
+			 while(rs.next()) {
+				 name = (rs.getString("name"));
+				 surname = (rs.getString("surname"));
+				 
+			 }
+			 
+			
+			 
+		 }
+		 catch (SQLException ex) {  
+			   name = "unknow";
+			   surname = "unknow";
+			   ex.printStackTrace(); 
+		}
+		
+		return new UserNameBean(name,surname);
+	 }
+	 
+	 public static int insertPerson(String username, String name, String surname, String email, String password){
+		 int numRowsChanged;
+		 try{
+			 Connection conn = getConnection();
+			 String sql = "insert into user values(?,?,?,?,?)";
+			 PreparedStatement statement = conn.prepareStatement(sql);
+			 statement.setString(1, username);
+			 statement.setString(2, name);
+			 statement.setString(3, surname);
+			 statement.setString(4, email);
+			 statement.setString(5, password);
+			 numRowsChanged = statement.executeUpdate();
+			 
+			 
+			 
+			 
+			 
+		 }catch (SQLException ex) {  
+			numRowsChanged = 0;
+		}
+		 
+		return  numRowsChanged;
 		 
 	 }
 	 

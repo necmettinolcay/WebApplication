@@ -1,5 +1,6 @@
 <%@page import="com.servlets.RunUtils"%>
 <%@page import="com.servlets.ProductBean"%>
+<%@page import="com.servlets.UserNameBean" %>
 
 <%@page import="com.servlets.ProductNameBean" %>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -10,7 +11,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Shop Araund</title>
+<title>${Title} </title>
 <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
 <!--[if lte IE 6]><link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" /><![endif]-->
@@ -25,9 +26,11 @@
   <div id="header">
     <h1 id="logo"><a href="#">shoparound</a></h1>
     <!-- Cart -->
-    <div id="cart"> <a href="#" class="cart-link">Your Shopping Cart</a>
+   
+    <div id="cart"> <a href="#" class="cart-link">${userName.name } ${userName.surname}</a>
+   
       <div class="cl">&nbsp;</div>
-      <span>Articles: <strong>4</strong></span> &nbsp;&nbsp; <span>Cost: <strong>$0</strong></span> </div>
+      <span>Articles: <strong>4</strong></span> &nbsp;&nbsp; <span>Cost: <strong>$250.99</strong></span> </div>
     <!-- End Cart -->
     <!-- Navigation -->
     <div id="navigation">
@@ -36,13 +39,14 @@
         <li><a href="./support.html">Support</a></li>
         <li><a href="giris.html">My Account</a></li>
         <li><a href="#">The Store</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="${pageContext.request.contextPath}/LogOutServlet">Log Out</a></li>
       </ul>
     </div>
     <!-- End Navigation -->
   </div>
   <!-- End Header -->
   <!-- Main -->
+  
   
   <div id="main">
     <div class="cl">&nbsp;</div>
