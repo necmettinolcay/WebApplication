@@ -1,0 +1,70 @@
+package com.servlets;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Servlet implementation class WishListServlet
+ */
+@WebServlet("/WishListServlet")
+public class WishListServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public WishListServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		@SuppressWarnings("unchecked")
+		ArrayList<String> previousItems =
+				(ArrayList<String>)session.getAttribute("previousItems");
+		if (previousItems == null) {
+			RequestDispatcher rd = getServletContext().getRequestDispatcher("/index.jsp");
+			PrintWriter out1= response.getWriter();
+			
+			out1.println("<script language=javascript>alert('Sepetiniz bos!')</script>");
+			
+			
+			rd.include(request, response);
+			}
+		else{
+			ProductBean wishlist1 = RunUtils.wishList(previousItems);
+			session.setAttribute("wishlist1", wishlist1);
+			String address = "sepet2.jsp";
+		    RequestDispatcher dispatcher =
+		      request.getRequestDispatcher(address);
+		    dispatcher.forward(request, response);
+		}
+		
+		
+		
+		
+		
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+	}
+
+}
