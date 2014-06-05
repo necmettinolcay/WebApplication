@@ -51,16 +51,38 @@
       <!-- Products -->
       <div class="products">
         <div class="cl">&nbsp;</div>
-       <table border=1>  
+        <table border=0 bacground=#fff><tr><td valign=top>
+         <table border=0  height=900 width=231  >
+       		<tr class="search-submit"><th>Urun Resmi </th></tr>  
  			
- 			<tr><td> <c:forEach var="path" items="${wishlist1.path}"><img src="${path }" /> <br></br></c:forEach></td><td> <c:forEach var="n" items="${wishlist1.name}"><c:out value="${n}" /> <br></br></c:forEach></td><td> <c:forEach var="pr" items="${wishlist1.price}"><c:out value="${pr}" /> <br></br></c:forEach></td></tr> 
+			<c:forEach var="product" items="${wishlist1.path}"> 
+		   <tr>
+				<td height=383 width=231  valign=center> <img src="${product}"/></td><td></td>
+			</tr>
+		    </c:forEach> 			
+ 	   </table></td><td valign=top>
+        <table border=0  height=900 width=100  >
+       		<tr class="search-submit"><th>Urun 	Adi </th></tr>  
  			
- 					
-    	
- 		
-   
-      </table>  
-        
+			<c:forEach var="product" items="${wishlist1.name}"> 
+		   <tr>
+				<td height=383 width=231 valign=center> <c:out value="${product}"></c:out>   </td>
+			</tr>
+		    </c:forEach> 			
+ 	   </table>
+ 	   </td><td valign=top>
+       <table border=0  height=900 width=100  >
+       		<tr class="search-submit"><th>Urun Ucreti </th></tr>  
+ 			
+			<c:forEach var="product" items="${wishlist1.price}"> 
+			
+			<tr>
+				<td height=383 width=231 valign=center> <c:out value="${product}"></c:out>   </td>
+			</tr>
+		    </c:forEach> 			
+ 	  </table>
+      </td></tr>    
+       </table> 
         
         <div class="cl">&nbsp;</div>
       </div>
