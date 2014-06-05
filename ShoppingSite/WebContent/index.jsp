@@ -25,9 +25,9 @@
   <div id="header">
     <h1 id="logo"><a href="#">shoparound</a></h1>
     <!-- Cart -->
-    <div id="cart"> <a href="#" class="cart-link">Your Shopping Cart</a>
+    <div id="cart"> <a href="WishListServlet" class="cart-link">Sepetim</a>
       <div class="cl">&nbsp;</div>
-      <span>Articles: <strong>4</strong></span> &nbsp;&nbsp; <span>Cost: <strong>$0</strong></span> </div>
+      <span>Articles: <strong>4</strong></span> &nbsp;&nbsp; <span>Cost: <strong><%=session.getAttribute("cost") %></strong></span> </div>
     <!-- End Cart -->
     <!-- Navigation -->
     <div id="navigation">
@@ -67,7 +67,6 @@
         <ul>
         <%! 
    			private ProductBean bean = RunUtils.randomProduct();
-   		 	
    		%>
    		 
    		

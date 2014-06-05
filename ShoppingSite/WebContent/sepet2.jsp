@@ -1,7 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
- <%@page import="com.servlets.ProductBean" %>
- <%@page import="java.util.*" %> 
+<%@page import="com.servlets.ProductBean" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,16 +23,8 @@
   <div id="header">
     <h1 id="logo"><a href="#">shoparound</a></h1>
     <!-- Cart -->
-    <div id="cart"> <a href="WishListServlet" class="cart-link"> Sepetim</a>
+    <div id="cart"> <a href="#" class="cart-link">Your Shopping Cart</a>
       <div class="cl">&nbsp;</div>
-     <% 
-     	if(session.getAttribute("cost") == null){
-     		session.setAttribute("cost", 0.0);
-     		request.setAttribute("cost", 0.0);     	
-     		
-     	}
-     %>
-    
       <span>Articles: <strong>4</strong></span> &nbsp;&nbsp; <span>Cost: <strong><%=session.getAttribute("cost") %></strong></span> </div>
     <!-- End Cart -->
     <!-- Navigation -->
@@ -39,7 +34,7 @@
         <li><a href="./support.html">Support</a></li>
         <li><a href="#">My Account</a></li>
         <li><a href="#">The Store</a></li>
-        <li><a href="${pageContext.request.contextPath}/LogOutServlet">Log Out</a></li>
+        <li><a href="#">Contact</a></li>
       </ul>
     </div>
     <!-- End Navigation -->
@@ -50,50 +45,26 @@
     <div class="cl">&nbsp;</div>
     <!-- Content -->
     <div id="content">
-   <div class="products">
+      <!-- Content Slider -->
+      
+      <!-- End Content Slider -->
+      <!-- Products -->
+      <div class="products">
         <div class="cl">&nbsp;</div>
-        <ul>
-      
-             
-        	
-          <li> <a href="#"> <img src="${path}" alt="" /></a>
-            <div class="product-info">
-           
-              <h3>${productName.name }</h3>
-              <div class="product-desc">
-                <h4>${productName.description }</h4>
-                <p>${productName.description }<br />
-                  </p>
-                <strong class="price">$${price}</strong> </div>
-            </div>
-          </li>
-       <li class="wishlist"> 
-            <div class="product-info">
-			<h3 class="changed">${productName.name }</h3>
-				<div class="product-desc">
-				<h4>${productName.description }</h4>
-				<p><strong class="price">$${price}</strong>
-				</p>
-              <form action="CostServlet" method="get">
-  				
-  				<input type="hidden" name="param1" value="${price}">
-  				<input type="hidden" name="param2" value="${path}">
-  				<input type="hidden" name="param3" value="<%=session.getAttribute("cost") %>">
-  				<input type="submit" class="search-submit" value="Sepete Ekle" />
-				</form>
-			 <p> <a href="index.jsp" class="bul">Ana Sayfa</a><br /></p>
-				
-        	
-				
-			 	
-				
-				</div>
-            </div>
-          </li>
-          
-       </ul>
-       </div>
-      
+       <table border=1>  
+ 			
+ 			<tr><td> <c:forEach var="path" items="${wishlist1.path}"><img src="${path }" /> <br></br></c:forEach></td><td> <c:forEach var="n" items="${wishlist1.name}"><c:out value="${n}" /> <br></br></c:forEach></td><td> <c:forEach var="pr" items="${wishlist1.price}"><c:out value="${pr}" /> <br></br></c:forEach></td></tr> 
+ 			
+ 					
+    	
+ 		
+   
+      </table>  
+        
+        
+        <div class="cl">&nbsp;</div>
+      </div>
+      <!-- End Products -->
     </div>
     <!-- End Content -->
     <!-- Sidebar -->
@@ -104,17 +75,16 @@
         <div class="box-content">
           <form action="ProductOptionServlet" method="get">
             <label>Keyword</label>
-            <input type="text" class="field"  name="keyword"/>
+            <input type="text" class="field" name="keyword" />
             <label>Category</label>
-             <select class="field" name="category">
+           <select class="field" name="category">
               <option value="">-- Select Category --</option>
               <option value="Ayakkabi">Ayakkabi</option>
               <option value="Kaban ve Mont">Kaban ve Mont</option>
             </select>
-          
             <div class="inline-field">
               <label>Price</label>
-              <select class="field small-field" name="cost1">
+             <select class="field small-field" name="cost1">
                 <option value="10">$10</option>
                 <option value="30">$30</option>
                 <option value="50">$50</option>

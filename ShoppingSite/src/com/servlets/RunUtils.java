@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 
@@ -247,7 +248,39 @@ public class RunUtils {
 		return  numRowsChanged;
 		 
 	 }
+	 public static ProductBean wishList(ArrayList<String> path){
+		 ArrayList<String> path1 = new ArrayList<String>();
+		 ArrayList<Float> price1 = new ArrayList<Float>();
+		 ArrayList<String> name1 = new ArrayList<String>();
+		 ArrayList<String> description1 = new ArrayList<String>();
+		
+		 
+		 try{
+			 Connection conn = getConnection();
+			 for(String item:path){
+				 String sql = "select productPicture,productPrice,productName,productDescription from product where product.productPicture='" + item + "'";  
+			 
+			
+				 PreparedStatement statement = conn.prepareStatement(sql);
+			 
+				 ResultSet rs = statement.executeQuery(sql);
+			 
+			 while(rs.next()) {
+				 path1.add(rs.getString("productPicture"));
+				 price1.add(rs.getFloat("productPrice"));
+				 name1.add(rs.getString("productName"));
+				 description1.add(rs.getString("productDescription"));
+				 
+			 }
+			 }
+		 }
+		 catch (SQLException ex) {  
+	            //message = "ERROR: " + ex.getMessage();  
+	            ex.printStackTrace();  
+			}
+		 return(new ProductBean(path1,price1,name1,description1));
 	 
+	 }
 	 
 	
 	 
